@@ -44,7 +44,8 @@ Since the dataset is highly imbalanced, with only 492 fraud cases out of 284,807
 ![Transaction](assets/images/transaction.png)
 
 #### Fraud Prediction
-![Transaction](assets/images/fraud.png)
+![Transaction](assets/images/fraud_prediction1.png)
+![Transaction](assets/images/fraud_prediction.png)
 
 #### Dataset Overview
 ![Dataset Overview](assets/images/dataset_overview.png)
