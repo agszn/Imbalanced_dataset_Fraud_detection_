@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block title %}Fraud Detection Prediction{% endblock %}
+
+{% block style %}
+<style>
+    * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #007BFF;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form p {
+    margin-bottom: 10px;
+}
+
+.submit-btn {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.submit-btn:hover {
+    background-color: #0056b3;
+}
+
+.result-box {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.result-message {
+    font-size: 18px;
+    color: #28a745;
+    margin-bottom: 10px;
+}
+
+.back-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: #007BFF;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.back-btn:hover {
+    background-color: #0056b3;
+}
+
+</style>
+{% endblock %}
+
+{% block index %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="title">Fraud Detection Result</h2>
+    <div class="result-box">
+        <p class="result-message">Transaction Status: <strong>{{ result }}</strong></p>
+        <p>Card Holder: {{ transaction.card_holder_name }}</p>
+        <p>Transaction Amount: ₹{{ transaction.transaction_amount }}</p>
+        <p>Merchant: {{ transaction.merchant_name }}</p>
+        <p>Location: {{ transaction.location }}</p>
+        <a href="{% url 'fraud_prediction_val' %}" class="back-btn">Try Another Transaction</a>
+    </div>
+</div>
+{% endblock %}

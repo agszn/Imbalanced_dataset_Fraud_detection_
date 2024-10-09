@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+{% block title %}Fraud Detection Prediction{% endblock %}
+
+{% block style %}
+<style>
+    .card {
+        background-color: rgba(255, 255, 255, 0.1); /* Transparent background */
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19); /* 3D effect */
+        padding: 20px;
+        width: 80%;
+        margin: 0 auto;
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Animation */
+    }
+
+    .card:hover {
+        transform: translateY(-10px); /* Lift the card on hover */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), 0 12px 40px rgba(0, 0, 0, 0.25); /* Stronger shadow on hover */
+    }
+
+    .card h1 {
+        text-align: center;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); /* 4 columns */
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+    .form-grid label {
+        font-weight: bold;
+    }
+
+    .form-grid input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+    }
+
+    .submit-btn {
+        grid-column: span 4;
+        width: 100%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .submit-btn:hover {
+        background-color: #45a049;
+    }
+
+    .result {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 1.2em;
+        color: #333;
+    }
+
+    .toggle-container {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .toggle-btn {
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .toggle-btn:hover {
+        background-color: #0056b3;
+    }
+</style>
+{% endblock %}
+
+{% block index %}
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h1>Fraud Detection Prediction</h1>
+
+    <div class="toggle-container">
+        <button class="toggle-btn" id="toggle-btn" onclick="toggleValues()">Switch to Fraudulent Values</button>
+    </div>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-grid">
+            <label for="time">Time:</label>
+            <input type="number" step="any" name="time" id="time" value="100.0" required>
+
+            <label for="amount">Amount:</label>
+            <input type="number" step="any" name="amount" id="amount" value="200.0" required>
+
+            {% for i in range %}
+                <label for="v{{ i }}">V{{ i }}:</label>
+                <input type="number" step="any" name="v{{ i }}" id="v{{ i }}" value="0.0" required>
+            {% endfor %}
+        </div>
+
+        <button type="submit" class="submit-btn">Predict</button>
+    </form>
+
+    {% if result %}
+        <div class="result">
+            <h2>Prediction Result: {{ result }}</h2>
+        </div>
+    {% endif %}
+</div>
+
+<script>
+    const fraudulentValues = {
+        time: 406.0,
+        amount: 0.00,
+        v: [-2.312227, -2.312227,-1.609851, 3.997906, -0.522188, -1.426545, -2.537387,	1.391657,	-2.770089,	-2.772272,	3.202033,	-2.899907,	-0.595222	,-4.289254	,0.389724,	-1.140747	,-2.830056	,-0.016822	,0.416956,	0.126911,	0.517232,	-0.035049,	-0.465211,	0.320198,	0.044519,	0.177840,	0.261145	,-0.143276],
+    };
+
+    const nonFraudulentValues = {
+        time: 100.0,
+        amount: 200.0,
+        v: [0.0, 0.1, -0.1, 0.2, -0.2, 0.3, -0.3, 0.4, -0.4, 0.5, -0.5, 0.6, -0.6, 0.7, -0.7, 0.8, -0.8, 0.9, -0.9, 1.0, -1.0, 1.1, -1.1, 1.2, -1.2, 1.3, -1.3, 1.4],
+    };
+
+    let isFraudulent = false;
+
+    function toggleValues() {
+        const timeInput = document.getElementById('time');
+        const amountInput = document.getElementById('amount');
+
+        // Toggle between fraudulent and non-fraudulent values
+        const values = isFraudulent ? nonFraudulentValues : fraudulentValues;
+
+        // Update form inputs
+        timeInput.value = values.time;
+        amountInput.value = values.amount;
+
+        for (let i = 1; i <= 28; i++) {
+            document.getElementById(`v${i}`).value = values.v[i - 1];
+        }
+
+        // Update button text
+        document.getElementById('toggle-btn').textContent = isFraudulent ? 'Switch to Fraudulent Values' : 'Switch to Non-Fraudulent Values';
+
+        // Toggle state
+        isFraudulent = !isFraudulent;
+    }
+</script>
+{% endblock %}

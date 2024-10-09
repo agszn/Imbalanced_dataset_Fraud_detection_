@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Gra{% endblock %}
+
+{% block style %}
+<style>
+    .gallery-container {
+        text-align: center; /* Center the entire gallery */
+        margin: 0 auto; /* Center the gallery on the page */
+        max-width: 1200px; /* Set a maximum width */
+        padding: 20px;
+    }
+
+    .gallery-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #066;
+        margin-bottom: 30px;
+    }
+
+    .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Flexible grid layout */
+        gap: 20px;
+    }
+
+    .gallery img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+        transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out; /* Smooth transition */
+    }
+
+    .gallery img:hover {
+        transform: scale(1.25); /* Increased zoom effect on hover */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* More intense shadow on hover */
+    }
+</style>
+{% endblock %}
+
+{% block index %}
+{% endblock %}
+
+{% block content %}
+<div class="gallery-container">
+    <h2 class="gallery-title">Graphs</h2>
+    <div class="gallery">
+        {% for image in images %}
+            <img src="{% static 'graphs/' %}{{ image }}" alt="{{ image }}">
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

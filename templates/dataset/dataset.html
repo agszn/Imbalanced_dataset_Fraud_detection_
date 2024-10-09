@@ -1,0 +1,68 @@
+<!-- dataset.html -->
+{% extends "base.html" %}
+{% block title %}Dataset View{% endblock %}
+
+{% block style %}
+<style>
+    .card {
+        background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+        padding: 20px; /* Padding inside the card */
+        margin: 20px; /* Space around the card */
+        max-height: 500px; /* Set max height for the card */
+        overflow-y: scroll; /* Enable vertical scrolling */
+        transition: transform 0.2s; /* Smooth transformation */
+    }
+
+    /* Remove zoom effect on hover */
+    .card:hover {
+        /* Removed transform: scale(1.05); */
+    }
+
+    .card h2 {
+        color: #333; /* Darker text color for the heading */
+        margin-bottom: 20px; /* Space below the heading */
+    }
+
+    .table {
+        width: 100%; /* Full width for the table */
+        border-collapse: collapse; /* Merge table borders */
+    }
+
+    .table th, .table td {
+        padding: 12px; /* Padding for table cells */
+        text-align: left; /* Align text to the left */
+        border-bottom: 1px solid #ddd; /* Bottom border for rows */
+    }
+
+    .table th {
+        background-color: #f2f2f2; /* Light background for header */
+    }
+
+    .pagination {
+        margin-top: 20px;
+        text-align: center; /* Center the pagination */
+    }
+
+    .pagination a {
+        margin: 0 10px;
+        text-decoration: none;
+        color: blue;
+    }
+</style>
+{% endblock %}
+
+{% block index %}
+{% endblock %}
+
+{% block content %}
+<h2 style="text-align: center;">Dataset Overview</h2>
+<div class="card">
+    <div>
+        {{ dataset|safe }} <!-- Render the dataset content inside the card -->
+    </div>
+</div>
+
+<!-- Remove pagination since the card is now scrollable -->
+{% endblock %}
